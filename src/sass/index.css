@@ -92,4 +92,16 @@ img {
   -webkit-clip-path: inset(50%);
           clip-path: inset(50%);
   margin: -1px;
+}
+
+.btn-up {
+  padding: 15px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(235, 238, 243);
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
 }/*# sourceMappingURL=index.css.map */

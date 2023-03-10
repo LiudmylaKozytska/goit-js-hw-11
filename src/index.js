@@ -28,7 +28,7 @@ function onSearch(e) {
   newApiService
     .fetchPixabay()
     .then(response => {
-      if (response.data.total === 0) {
+      if (response.data.total === 0 || newApiService.query === '') {
         return Notiflix.Notify.failure(
           'Sorry, there are no images matching your search query. Please try again.'
         );
@@ -97,4 +97,3 @@ function removeClass() {
   refs.btn.classList.remove('visually-hidden');
   refs.btnUp.classList.remove('visually-hidden');
 }
-
