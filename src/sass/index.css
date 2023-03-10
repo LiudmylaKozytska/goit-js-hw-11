@@ -1,0 +1,95 @@
+@import '~node_modules/modern-normalize/modern-normalize.css';
+img {
+  display: block;
+  width: 330px;
+  height: 205px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.gallery {
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.photo-card {
+  box-shadow: 1px 5px 9px 0px rgb(66, 68, 90);
+}
+
+.info {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 5px;
+}
+
+.search-form {
+  padding-top: 20px;
+  border-bottom: 1px solid rgb(14, 16, 71);
+  box-shadow: 1px 5px 9px 0px rgb(66, 68, 90);
+  height: 60px;
+  background-color: #1c2c78;
+  text-align: center;
+}
+
+.search-form input {
+  padding-left: 10px;
+  height: 25px;
+  color: #1c2c78;
+  border: 1px solid rgb(14, 16, 71);
+  box-shadow: 1px 5px 9px 0px rgb(19, 23, 75);
+  background-color: #fff;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.search-form button {
+  width: 100px;
+  height: 25px;
+  color: #1c2c78;
+  border: 1px solid rgb(14, 16, 71);
+  box-shadow: 1px 5px 9px 0px rgb(19, 23, 75);
+  background-color: #fff;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.load-more {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 150px;
+  height: 40px;
+  background-color: #1c2c78;
+  border: 1px solid rgb(14, 16, 71);
+  box-shadow: 1px 5px 9px 0px rgb(66, 68, 90);
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  -webkit-clip-path: inset(50%);
+          clip-path: inset(50%);
+  margin: -1px;
+}/*# sourceMappingURL=index.css.map */
