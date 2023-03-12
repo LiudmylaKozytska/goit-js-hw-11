@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '34170895-3b717d95f13cef959b3654060';
@@ -13,7 +14,7 @@ export class ApiService {
   async fetchPixabay() {
     const url = `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&per_page=${this.perPage}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}`;
     try {
-      return await axios.get(url);
+      return await axios.get(url).then(response => response.data);
     } catch (error) {
       console.error(error);
     }

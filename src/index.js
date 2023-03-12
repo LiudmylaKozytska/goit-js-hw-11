@@ -13,64 +13,67 @@ export const refs = {
 };
 
 const newApiService = new ApiService();
+let lightbox;
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.btn.addEventListener('click', onLoadMore);
 refs.btnUp.addEventListener('click', scrollBtn);
 
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
   clearArticleContainer();
-  addClass();
 
   newApiService.query = e.currentTarget.elements.searchQuery.value.trim();
 
-  newApiService
-    .fetchPixabay()
-    .then(response => {
-      if (response.data.total === 0 || newApiService.query === '') {
-        return Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      } else {
-        removeClass();
-        cardMarkup(response.data.hits);
-        lightbox();
+  if (newApiService.query === '') {
+    Notiflix.Notify.failure('Please type something.');
+    addClass();
+    return;
+  }
 
-        return Notiflix.Notify.success(
-          `Hooray! We found ${response.data.totalHits} images!`
-        );
-      }
-    })
-    .catch(error => console.log(error));
+  const elements = await newApiService.fetchPixabay();
+  console.log(elements);
+
+  if (elements.totalHits === 0) {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    addClass();
+    return;
+  } else {
+    Notiflix.Notify.success(`Hooray! We found ${elements.totalHits} images.`);
+    removeClass();
+    cardMarkup(elements.hits);
+    simpleLightbox();
+    return;
+  }
 }
 
-function onLoadMore() {
+async function onLoadMore() {
   newApiService.incrementPage();
+  lightbox.destroy();
 
-  newApiService.fetchPixabay().then(response => {
-    cardMarkup(response.data.hits);
-    lightbox();
+  const elements = await newApiService.fetchPixabay();
 
-    const totalPages = Math.ceil(
-      response.data.totalHits / newApiService.perPage
+  const totalPages = Math.ceil(elements.totalHits / newApiService.perPage);
+
+  if (newApiService.page >= totalPages) {
+    addClass();
+    Notiflix.Notify.failure(
+      "We're sorry, but you've reached the end of search results."
     );
-
-    if (newApiService.page + 1 > totalPages) {
-      addClass();
-      Notiflix.Notify.failure(
-        "We're sorry, but you've reached the end of search results."
-      );
-    }
-  });
+    return;
+  }
+  cardMarkup(elements.hits);
+  simpleLightbox();
 }
 
 function clearArticleContainer() {
   refs.gallery.innerHTML = '';
 }
 
-function lightbox() {
-  simpleLightbox = new SimpleLightbox('.gallery a', {
+function simpleLightbox() {
+  lightbox = new SimpleLightbox('.gallery a', {
     captions: true,
     captionsData: 'alt',
     captionDelay: 250,
@@ -89,8 +92,10 @@ function scrollBtn() {
 }
 
 function addClass() {
-  refs.btn.classList.add('visually-hidden');
-  refs.btnUp.classList.add('visually-hidden');
+  return (
+    refs.btn.classList.add('visually-hidden'),
+    refs.btnUp.classList.add('visually-hidden')
+  );
 }
 
 function removeClass() {
