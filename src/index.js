@@ -20,6 +20,7 @@ refs.btn.addEventListener('click', onLoadMore);
 refs.btnUp.addEventListener('click', scrollBtn);
 
 async function onSearch(e) {
+  newApiService.resetPage();
   e.preventDefault();
   clearArticleContainer();
 
